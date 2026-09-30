@@ -8,6 +8,16 @@ $ python app/main.py
 3
 ```
 
+# A * B
+
+`app/multiply.py`는 표준 입력에서 공백으로 구분된 정수 두 개를 읽고 곱을 출력합니다.
+
+```console
+$ python app/multiply.py
+2 3
+6
+```
+
 테스트는 Python 표준 라이브러리의 `unittest`로 실행합니다.
 
 ```console
