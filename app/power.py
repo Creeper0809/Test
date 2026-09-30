@@ -22,7 +22,8 @@ def power(base: int, exponent: int) -> int:
     while remaining:
         if remaining & 1:
             result *= factor
-        factor *= factor
         remaining >>= 1
+        if remaining:
+            factor *= factor
 
     return result

@@ -7,6 +7,20 @@ import unittest
 from app.power import power
 
 
+class MultiplicationCountingInt(int):
+    """An integer that records multiplication operations involving itself."""
+
+    multiplication_count = 0
+
+    def __mul__(self, other: object) -> "MultiplicationCountingInt":
+        type(self).multiplication_count += 1
+        return type(self)(super().__mul__(other))
+
+    def __rmul__(self, other: object) -> "MultiplicationCountingInt":
+        type(self).multiplication_count += 1
+        return type(self)(super().__rmul__(other))
+
+
 class PowerTests(unittest.TestCase):
     def test_raises_positive_base_to_positive_exponent(self) -> None:
         self.assertEqual(power(2, 10), 1024)
@@ -24,6 +38,13 @@ class PowerTests(unittest.TestCase):
     def test_calculates_large_integers_exactly(self) -> None:
         self.assertEqual(power(2, 4096), 2**4096)
         self.assertIsInstance(power(2, 4096), int)
+
+    def test_exponent_one_does_not_square_factor(self) -> None:
+        base = MultiplicationCountingInt(7)
+        MultiplicationCountingInt.multiplication_count = 0
+
+        self.assertEqual(power(base, 1), 7)
+        self.assertEqual(MultiplicationCountingInt.multiplication_count, 1)
 
     def test_rejects_negative_exponent(self) -> None:
         with self.assertRaises(ValueError):
