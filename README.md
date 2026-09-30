@@ -8,6 +8,16 @@ $ python app/main.py
 3
 ```
 
+정수의 0 이상 거듭제곱은 `power` 함수로 계산할 수 있습니다.
+
+```python
+from app.power import power
+
+print(power(2, 10))  # 1024
+print(power(-3, 3))  # -27
+print(power(0, 0))   # 1
+```
+
 테스트는 Python 표준 라이브러리의 `unittest`로 실행합니다.
 
 ```console
